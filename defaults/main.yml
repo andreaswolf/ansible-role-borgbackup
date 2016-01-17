@@ -1,0 +1,15 @@
+---
+
+borgbackup_version: '0.29.0'
+
+# todo this should be set depending on the target platform
+borgbackup_platform: 'linux64'
+
+borgbackup_download_url: 'https://github.com/borgbackup/borg/releases/download/{{ borgbackup_version }}/borg-{{ borgbackup_platform }}'
+
+# todo include multiple hashes here
+borgbackup_hash_sha256: '5d8362f545aedf71be1893bd0fab30ecd79d40c89671323c804376b53f8886af'
+
+borgbackup_executable_path: '/usr/local/sbin/borg'
+
+...
