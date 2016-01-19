@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Andreas Wolf
-  description:
+  description: Install and configure Borg Backup (http://borgbackup.readthedocs.org)
   license: MIT
   min_ansible_version: 1.9
   platforms:
