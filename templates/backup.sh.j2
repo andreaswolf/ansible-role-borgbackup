@@ -1,0 +1,10 @@
+#!/bin/sh
+
+REPOSITORY={{ item.backup_server }}:{{ item.backup_repository }}
+
+export BORG_RSH="ssh -o IdentityFile={{ borgbackup_ssh_key_path }}"
+
+{{ borgbackup_executable_path | default('borg') }} create {{ item.borg_options|default(borgbackup_create_default_options) }} --stats \
+    $REPOSITORY::{{ item.backup_prefix | default(ansible_hostname) }}-{{ item.backup_name | default('`date +%Y-%m-%d`') }} \
+    {{ item.directories | join(' ') }}
+

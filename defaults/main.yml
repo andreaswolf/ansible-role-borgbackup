@@ -12,4 +12,8 @@ borgbackup_hash_sha256: '5d8362f545aedf71be1893bd0fab30ecd79d40c89671323c804376b
 
 borgbackup_executable_path: '/usr/local/sbin/borg'
 
+borgbackup_ssh_key_path: '/root/.ssh/id_rsa'
+
+borgbackup_create_default_options: '--compression zlib,6'
+
 ...

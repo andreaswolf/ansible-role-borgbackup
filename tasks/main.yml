@@ -7,6 +7,28 @@
     mode: '0754'
     # sha256sum used for compatibility; we should one day change this to "checksum:", which is supported in Ansible >= 2.0
     sha256sum: '{{ borgbackup_hash_sha256 }}'
+  when: borg_backups is defined
 
+- name: Create backup scripts dir
+  file: path=/etc/borg state=directory mode=0755 owner=root group=root
+  when: borg_backups is defined
+
+- name: Create backup scripts
+  template: src=backup.sh.j2 dest=/etc/borg/backup-{{ item.name }}.sh mode=0700
+  with_items: borg_backups
+  when: borg_backups is defined
+
+- name: Create cronjob for backup
+  cron:
+    name: 'borg backpu {{ item.name }}'
+    job: '/etc/borg/backup-{{ item.name }}.sh'
+    day: '*'
+    hour: 4
+    minute: 30
+    state: present
+    # todo define user from item
+    user: root
+  with_items: borg_backups
+  when: borg_backups is defined
 
 ...
