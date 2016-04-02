@@ -22,6 +22,18 @@
   file: path=/etc/borg state=directory mode=0755 owner=root group=root
   when: 'borg_backups is defined'
 
+# todo support users other than root here
+- name: Create borg key dir
+  file: path=/root/.borg/keys state=directory mode=0700 owner=root group=root
+  when: 'borg_backups is defined'
+
+- name: Add borg repository keys to client
+  template:
+    dest: '/root/.borg/keys/.{{ item.keyname | default(item.name) }}'
+    src: repokey.j2
+  with_items: '{{ borg_backups }}'
+  when: 'borg_backups is defined and item.encryption is defined and item.encryption == "keyfile" and item.key is defined'
+
 - name: Create backup scripts
   template: src=backup.sh.j2 dest=/etc/borg/backup-{{ item.name }}.sh mode=0700
   with_items: '{{ borg_backups }}'

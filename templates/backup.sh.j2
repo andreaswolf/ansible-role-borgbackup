@@ -1,6 +1,9 @@
 #!/bin/sh
 
 REPOSITORY={{ item.backup_server }}:{{ item.backup_repository }}
+{% if (item.encryption is defined and item.encryption == 'keyfile') %}
+export BORG_PASSPHRASE="{{ item.passphrase }}"
+{% endif %}
 
 export BORG_RSH="ssh -o IdentityFile={{ borgbackup_ssh_key_path }}"
 

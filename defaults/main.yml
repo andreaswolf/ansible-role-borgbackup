@@ -18,6 +18,16 @@ borgbackup_create_default_options: '--compression zlib,6'
 
 borgbackup_user: 'borg'
 
+# keys:
+#  - name
+#  - backup_prefix
+#  - backup_name
+#  - borg_options
+#  - encryption: none, keyfile
+#  - key (repository key)
+#  - passphrase (for repository key)
+borg_backups: []
+
 # keys: repo_dir, key (public key)
 borgbackup_client_ssh_keys: []
 
