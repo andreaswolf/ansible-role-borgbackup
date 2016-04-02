@@ -9,6 +9,15 @@
     sha256sum: '{{ borgbackup_hash_sha256 }}'
   when: 'borg_backups is defined'
 
+
+- name: Add authorized keys for clients
+  authorized_key:
+   user: "{{ borgbackup_user }}"
+   key: "{{ item.key }}"
+   key_options: 'command="cd {{ item.repo_dir }};borg serve --restrict-to-path {{ item.repo_dir }}",no-port-forwarding,no-X11-forwarding,no-pty,no-agent-forwarding,no-user-rc'
+  with_items: '{{ borgbackup_client_ssh_keys }}'
+
+
 - name: Create backup scripts dir
   file: path=/etc/borg state=directory mode=0755 owner=root group=root
   when: 'borg_backups is defined'

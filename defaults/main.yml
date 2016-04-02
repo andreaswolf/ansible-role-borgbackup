@@ -16,4 +16,9 @@ borgbackup_ssh_key_path: '/root/.ssh/id_rsa'
 
 borgbackup_create_default_options: '--compression zlib,6'
 
+borgbackup_user: 'borg'
+
+# keys: repo_dir, key (public key)
+borgbackup_client_ssh_keys: []
+
 ...
