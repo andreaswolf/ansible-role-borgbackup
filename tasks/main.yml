@@ -18,9 +18,16 @@
   with_items: borg_backups
   when: borg_backups is defined
 
-- name: Create cronjob for backup
+- name: Remove cronjobs with wrong name
   cron:
     name: 'borg backpu {{ item.name }}'
+    state: absent
+  with_items: '{{ borg_backups }}'
+  when: 'borg_backups is defined'
+
+- name: Create cronjob for backup
+  cron:
+    name: 'borg backup {{ item.name }}'
     job: '/etc/borg/backup-{{ item.name }}.sh'
     day: '*'
     hour: 4
