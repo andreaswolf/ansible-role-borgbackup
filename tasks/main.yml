@@ -1,5 +1,9 @@
 ---
 
+#########################################
+# General borg setup
+# (required for server and client)
+
 - name: Download borg backup
   get_url:
     url: "{{ borgbackup_download_url }}"
@@ -10,6 +14,10 @@
   when: 'borg_backups is defined'
 
 
+#########################################
+# SSH configuration (server side)
+
+# adds keys for logging into the server via SSH
 - name: Add authorized keys for clients
   authorized_key:
    user: "{{ borgbackup_user }}"
@@ -17,6 +25,9 @@
    key_options: 'command="cd {{ item.repo_dir }};borg serve --restrict-to-path {{ item.repo_dir }}",no-port-forwarding,no-X11-forwarding,no-pty,no-agent-forwarding,no-user-rc'
   with_items: '{{ borgbackup_client_ssh_keys }}'
 
+
+#########################################
+# Backups configuration (client side)
 
 - name: Create backup scripts dir
   file: path=/etc/borg state=directory mode=0755 owner=root group=root
@@ -27,6 +38,7 @@
   file: path=/root/.borg/keys state=directory mode=0700 owner=root group=root
   when: 'borg_backups is defined'
 
+# the key of a repository can be exported with "borg key export /path/to/repo /path/to/export/target"
 - name: Add borg repository keys to client
   template:
     dest: '/root/.borg/keys/.{{ item.keyname | default(item.name) }}'
