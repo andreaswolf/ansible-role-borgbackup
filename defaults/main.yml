@@ -1,5 +1,9 @@
 ---
 
+borgbackup_use_borgmatic: false
+
+borgmatic_version: '1.2.14'
+
 borgbackup_version: '0.29.0'
 
 # todo this should be set depending on the target platform
@@ -30,5 +34,7 @@ borg_backups: []
 
 # keys: repo_dir, key (public key)
 borgbackup_client_ssh_keys: []
+
+borgmatic_config_file: /etc/borgmatic/config.yaml
 
 ...

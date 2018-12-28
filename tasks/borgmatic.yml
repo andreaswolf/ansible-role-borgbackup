@@ -1,0 +1,38 @@
+---
+
+- name: Install Borgmatic from pip
+  pip:
+    name: borgmatic=={{ borgmatic_version }}
+    executable: pip3
+
+- name: Ensures /etc/borgmatic exists
+  file:
+    path: /etc/borgmatic
+    state: directory
+    mode: 0700
+    owner: root
+
+- name: Add Borgmatic Configuration
+  template:
+    src: borgmatic_config.yaml.j2
+    dest: "{{ borgmatic_config_file }}"
+    mode: 0600
+
+- name: Add cron-job for borgmatic
+  cron:
+    name: "borgmatic"
+    hour: "{{ 4 |random }}"
+    minute: "{{ 59 |random }}"
+    user: "root"
+    cron_file: borgmatic
+    job: "/usr/local/bin/borgmatic -c {{ borgmatic_config_file }}"
+
+- name: Set PATH for borgmatic cron job.
+  cron:
+    user: "root"
+    cron_file: borgmatic
+    name: PATH
+    env: yes
+    value: /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+...

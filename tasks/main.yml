@@ -44,19 +44,19 @@
     dest: '/root/.borg/keys/.{{ item.keyname | default(item.name) }}'
     src: repokey.j2
   with_items: '{{ borg_backups }}'
-  when: 'borg_backups is defined and item.encryption is defined and item.encryption == "keyfile" and item.key is defined'
+  when: '(borg_backups | default([])) | length is defined and item.encryption is defined and item.encryption == "keyfile" and item.key is defined'
 
 - name: Create backup scripts
   template: src=backup.sh.j2 dest=/etc/borg/backup-{{ item.name }}.sh mode=0700
   with_items: '{{ borg_backups }}'
-  when: 'borg_backups is defined'
+  when: 'borg_backups is defined and not borgbackup_use_borgmatic'
 
 - name: Remove cronjobs with wrong name
   cron:
     name: 'borg backpu {{ item.name }}'
     state: absent
   with_items: '{{ borg_backups }}'
-  when: 'borg_backups is defined'
+  when: 'borg_backups is defined and not borgbackup_use_borgmatic'
 
 - name: Create cronjob for backup
   cron:
@@ -69,6 +69,9 @@
     # todo define user from item
     user: root
   with_items: '{{ borg_backups }}'
-  when: 'borg_backups is defined'
+  when: 'borg_backups is defined and not borgbackup_use_borgmatic'
+
+- include: borgmatic.yml
+  when: borgbackup_use_borgmatic
 
 ...
