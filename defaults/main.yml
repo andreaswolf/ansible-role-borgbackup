@@ -4,7 +4,7 @@ borgbackup_use_borgmatic: false
 
 borgmatic_version: '1.2.14'
 
-borgbackup_version: '0.29.0'
+borgbackup_version: '1.1.8'
 
 # todo this should be set depending on the target platform
 borgbackup_platform: 'linux64'
@@ -12,7 +12,7 @@ borgbackup_platform: 'linux64'
 borgbackup_download_url: 'https://github.com/borgbackup/borg/releases/download/{{ borgbackup_version }}/borg-{{ borgbackup_platform }}'
 
 # todo include multiple hashes here
-borgbackup_hash_sha256: '5d8362f545aedf71be1893bd0fab30ecd79d40c89671323c804376b53f8886af'
+borgbackup_hash_sha256: 'e36af596113ed929b2103e633b25ecb5570bcbe7b2ef46ecaf61440838b16b80'
 
 borgbackup_executable_path: '/usr/local/sbin/borg'
 
