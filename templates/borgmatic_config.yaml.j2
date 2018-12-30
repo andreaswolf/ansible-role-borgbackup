@@ -7,7 +7,12 @@ location:
     # Stay in same file system (do not cross mount points).
     one_file_system: {{ borg_one_file_system }}
     repositories:
+    {% if borg_repositories %}{% for repo in borg_repositories %}
+        - {{ repo }}
+    {% endfor %}
+    {% else %}
         - {{ borg_repository }}
+    {% endif %}
 
     # Any paths matching these patterns are excluded from backups. Globs and tildes
     # are expanded. See the output of "borg help patterns" for more details.

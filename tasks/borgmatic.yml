@@ -17,6 +17,7 @@
     src: borgmatic_config.yaml.j2
     dest: "{{ borgmatic_config_file }}"
     mode: 0600
+  when: borg_repository or borg_repositories or ((borg_backups | length) > 0)
 
 - name: Add cron-job for borgmatic
   cron:
@@ -26,6 +27,7 @@
     user: "root"
     cron_file: borgmatic
     job: "/usr/local/bin/borgmatic -c {{ borgmatic_config_file }}"
+  when: borg_repository or borg_repositories or ((borg_backups | length) > 0)
 
 - name: Set PATH for borgmatic cron job.
   cron:
@@ -34,5 +36,6 @@
     name: PATH
     env: yes
     value: /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+  when: borg_repository or borg_repositories or ((borg_backups | length) > 0)
 
 ...
