@@ -35,6 +35,8 @@ borg_backups: []
 # keys: repo_dir, key (public key)
 borgbackup_client_ssh_keys: []
 
+borgmatic_cron_time: ''
+
 borgmatic_config_file: /etc/borgmatic/config.yaml
 
 borg_repository: ''
