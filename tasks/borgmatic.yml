@@ -1,5 +1,12 @@
 ---
 
+- name: Install Pip and Setuptools for Python 3
+  apt:
+    name:
+      - python3-pip
+      - python3-setuptools
+    state: present
+
 - name: Install Borgmatic from pip
   pip:
     name: borgmatic=={{ borgmatic_version }}
