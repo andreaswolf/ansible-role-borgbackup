@@ -14,7 +14,7 @@ borgbackup_download_url: 'https://github.com/borgbackup/borg/releases/download/{
 # todo include multiple hashes here
 borgbackup_hash_sha256: 'e36af596113ed929b2103e633b25ecb5570bcbe7b2ef46ecaf61440838b16b80'
 
-borgbackup_executable_path: '/usr/local/sbin/borg'
+borgbackup_executable_path: '/usr/local/bin/borg'
 
 borgbackup_ssh_key_path: '/root/.ssh/id_rsa'
 
