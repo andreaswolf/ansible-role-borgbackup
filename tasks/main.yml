@@ -8,7 +8,7 @@
   get_url:
     url: "{{ borgbackup_download_url }}"
     dest: "{{ borgbackup_executable_path }}"
-    mode: '0754'
+    mode: '0755'
     # sha256sum used for compatibility; we should one day change this to "checksum:", which is supported in Ansible >= 2.0
     sha256sum: '{{ borgbackup_hash_sha256 }}'
 
