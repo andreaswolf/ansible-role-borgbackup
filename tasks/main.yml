@@ -21,7 +21,7 @@
   authorized_key:
    user: "{{ borgbackup_user }}"
    key: "{{ item.key }}"
-   key_options: 'command="cd {{ item.repo_dir }};borg serve --restrict-to-path {{ item.repo_dir }}",no-port-forwarding,no-X11-forwarding,no-pty,no-agent-forwarding,no-user-rc'
+   key_options: 'command="cd {{ item.repo_dir }};{{ item.borg_binary | default("borg") }} serve --restrict-to-path {{ item.repo_dir }}",no-port-forwarding,no-X11-forwarding,no-pty,no-agent-forwarding,no-user-rc'
   with_items: '{{ borgbackup_client_ssh_keys }}'
 
 
