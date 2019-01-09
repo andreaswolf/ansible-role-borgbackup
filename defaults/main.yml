@@ -37,4 +37,8 @@ borgbackup_client_ssh_keys: []
 
 borgmatic_config_file: /etc/borgmatic/config.yaml
 
+borg_repository: ''
+borg_repositories: []
+borg_source_directories: []
+
 ...

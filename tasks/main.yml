@@ -11,7 +11,6 @@
     mode: '0754'
     # sha256sum used for compatibility; we should one day change this to "checksum:", which is supported in Ansible >= 2.0
     sha256sum: '{{ borgbackup_hash_sha256 }}'
-  when: 'borg_backups is defined'
 
 
 #########################################
@@ -31,12 +30,12 @@
 
 - name: Create backup scripts dir
   file: path=/etc/borg state=directory mode=0755 owner=root group=root
-  when: 'borg_backups is defined'
+  when: '((borg_backups | default([])) | length) and not borgbackup_use_borgmatic'
 
 # todo support users other than root here
 - name: Create borg key dir
   file: path=/root/.borg/keys state=directory mode=0700 owner=root group=root
-  when: 'borg_backups is defined'
+  when: '((borg_backups | default([])) | length) and not borgbackup_use_borgmatic'
 
 # the key of a repository can be exported with "borg key export /path/to/repo /path/to/export/target"
 - name: Add borg repository keys to client
