@@ -29,7 +29,7 @@
 - name: Add cron-job for borgmatic
   cron:
     name: "borgmatic"
-    hour: "{{ borgmatic_cron_time.split(':')[0] | default(4 | random) }}"
+    hour: "{{ borgmatic_cron_time.split(':')[0] | default(4 | random, true) }}"
     minute: "{{ borgmatic_cron_time.split(':')[1] | default(59 | random) }}"
     user: "root"
     cron_file: borgmatic
