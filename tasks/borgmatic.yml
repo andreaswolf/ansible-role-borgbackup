@@ -6,6 +6,7 @@
       - python3-pip
       - python3-setuptools
     state: present
+  when: '{{ borgbackup_install_os_dependencies }}'
 
 - name: Install Borgmatic from pip
   pip:

@@ -1,5 +1,7 @@
 ---
 
+borgbackup_install_os_dependencies: true
+
 borgbackup_use_borgmatic: false
 
 borgmatic_version: '1.2.14'
